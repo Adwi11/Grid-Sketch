@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Sketch the Etch
+    </title>
+    <style>
+      body{
+        margin-left: 0px;
+        margin-right: 0px;
+        background-color: azure;
+      }
+      .title{
+        text-align: center;
+      }
+      .buttons{
+        
+      }
+      .container{
+        display: flex;
+        justify-content: center;
+      }
+      .boards{
+        display: grid;
+        width: 500px;
+        height: 500px;
+        background-color: white;
+        box-shadow: 1px 1px 1px 0;
+      }
+      .blocks{
+        background-color: green;
+      }
+      .slider::-moz-range-thumb {
+      width: 25px; 
+      height: 25px; 
+      background: #04AA6D; 
+      cursor: pointer; 
+}
+
+    </style>
+    
+  </head>
+  <body>
+    <h3 class="title">
+      Sketch the Etch 
+    </h3>
+    <div class="buttons">
+      <button id="erz">Erase</button>
+      <button>Black</button>
+      <button>Rainbow</button>
+    </div>
+    <div class="container">
+    <div class="boards"></div>
+    </div>
+    <div class="slidecontainer">
+      <input type="range" min="10" max="50" value="20" class="slider" id="myRange">
+    </div>
+    
+  </body>
+  <script>
+    let slides=document.getElementById("myRange");
+    let erzBtn=document.getElementById("erz");
+    erzBtn.onclick=function(){
+      populateBoard(slides.value);
+    }
+    slides.oninput=function(){
+      let newVal=slides.value;
+      populateBoard(newVal)
+    }
+    function populateBoard(size){
+    let board=document.querySelector(".boards");
+    let square=board.querySelectorAll('div');
+    square.forEach(div => div.remove());
+    board.style.gridTemplateColumns=`repeat(${size},1fr)`;
+    board.style.gridTemplateRows=`repeat(${size},1fr)`;
+
+    for(let i=0; i<(size*size); i++){
+      let squares=document.createElement('div');
+      squares.addEventListener('mouseover',()=>{
+        squares.style.backgroundColor='black'})
+      board.insertAdjacentElement('beforeend',squares);
+    }
+    }
+    populateBoard(20)
+
+  </script>
+
+</html>

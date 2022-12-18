@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #grid-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+      width: 100%;
+      height: 100%;
+      border: solid;
+      background-color: white;
+    }
+
+    #erase-button {
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+  <script>
+    const grid = document.getElementById("grid");
+    const eraseButton = document.getElementById("erase-button");
+
+    grid.addEventListener("mouseover", e => {
+      e.target.style.backgroundColor = "black";
+    });
+
+    eraseButton.addEventListener("click", () => {
+      const cells = grid.querySelectorAll("div");
+      cells.forEach(cell => {
+        cell.style.backgroundColor = "white";
+      });
+    });
+
+    const gridSizeSelect = document.getElementById("grid-size");
+
+    gridSizeSelect.addEventListener("change", e => {
+      const size = parseInt(e.target.value);
+      grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+      grid.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+    });
+  </script>
+</head>
+<body>
+  <div id="grid-container">
+    <div id="grid"></div>
+  </div>
+
+  <select id="grid-size">
+    <option value="5">5x5</option>
+    <option value="10" selected>10x10</option>
+    <option value="25">25x25</option>
+  </select>
+
+  <button id="erase-button">Erase</button>
+</body>
+</html>
